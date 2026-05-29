@@ -33,3 +33,10 @@ export type Standing = {
   setDifferential: number;
   pointDifferential: number;
 };
+
+export type BracketMatch = {
+  round: number;
+  matchNumber: number;
+  teamAName: string;
+  teamBName: string;
+};

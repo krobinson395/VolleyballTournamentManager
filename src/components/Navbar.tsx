@@ -18,6 +18,8 @@ function Navbar() {
         }}
       >
         <Link to="/">Standings</Link>
+        <Link to="/matches">Match History</Link>
+        <Link to="/bracket">Bracket</Link>
         <Link to="/admin">Admin</Link>
       </div>
     </nav>
