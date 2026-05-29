@@ -5,6 +5,26 @@ import type { Match, Team } from '../types';
 import { calculateStandings } from '../utils/standings';
 import Navbar from '../components/Navbar';
 
+const tableHeaderStyle: React.CSSProperties = {
+  padding: '12px',
+  borderBottom: '2px solid #ddd',
+  borderRight: '1px solid #eee',
+  textAlign: 'center',
+};
+
+const tableCellCentered: React.CSSProperties = {
+  padding: '12px',
+  borderBottom: '1px solid #eee',
+  borderRight: '1px solid #f0f0f0',
+  textAlign: 'center',
+};
+
+const tableCellLeft: React.CSSProperties = {
+  padding: '12px',
+  borderBottom: '1px solid #eee',
+  borderRight: '1px solid #f0f0f0',
+  textAlign: 'left',
+};
 function HomePage() {
   const [teams, setTeams] = useState<Team[]>([]);
   const [matches, setMatches] = useState<Match[]>([]);
@@ -64,35 +84,62 @@ function HomePage() {
         {standings.length === 0 ? (
           <p>No teams yet.</p>
         ) : (
-          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-            <thead>
-              <tr>
-                <th style={{ textAlign: 'left', borderBottom: '1px solid #ddd' }}>Seed</th>
-                <th style={{ textAlign: 'left', borderBottom: '1px solid #ddd' }}>Team</th>
-                <th style={{ textAlign: 'left', borderBottom: '1px solid #ddd' }}>W</th>
-                <th style={{ textAlign: 'left', borderBottom: '1px solid #ddd' }}>L</th>
-                <th style={{ textAlign: 'left', borderBottom: '1px solid #ddd' }}>Sets</th>
-                <th style={{ textAlign: 'left', borderBottom: '1px solid #ddd' }}>Set +/-</th>
-                <th style={{ textAlign: 'left', borderBottom: '1px solid #ddd' }}>Point +/-</th>
-              </tr>
-            </thead>
+          <table
+  style={{
+    width: '100%',
+    borderCollapse: 'collapse',
+    marginTop: '16px',
+  }}
+>
+  <thead>
+    <tr style={{ backgroundColor: '#f5f5f5' }}>
+      <th style={tableHeaderStyle}>Seed</th>
+      <th style={tableHeaderStyle}>Team</th>
+      <th style={tableHeaderStyle}>W</th>
+      <th style={tableHeaderStyle}>L</th>
+      <th style={tableHeaderStyle}>Sets</th>
+      <th style={tableHeaderStyle}>Set +/-</th>
+      <th style={tableHeaderStyle}>Point +/-</th>
+    </tr>
+  </thead>
 
-            <tbody>
-              {standings.map((standing, index) => (
-                <tr key={standing.teamId}>
-                  <td style={{ padding: '8px 0' }}>{index + 1}</td>
-                  <td style={{ padding: '8px 0' }}>{standing.teamName}</td>
-                  <td style={{ padding: '8px 0' }}>{standing.wins}</td>
-                  <td style={{ padding: '8px 0' }}>{standing.losses}</td>
-                  <td style={{ padding: '8px 0' }}>
-                    {standing.setsWon}-{standing.setsLost}
-                  </td>
-                  <td style={{ padding: '8px 0' }}>{standing.setDifferential}</td>
-                  <td style={{ padding: '8px 0' }}>{standing.pointDifferential}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+  <tbody>
+    {standings.map((standing, index) => (
+      <tr
+        key={standing.teamId}
+        style={{
+          backgroundColor: index % 2 === 0 ? 'white' : '#fafafa',
+        }}
+      >
+        <td style={tableCellCentered}>{index + 1}</td>
+
+        <td style={tableCellLeft}>
+          {standing.teamName}
+        </td>
+
+        <td style={tableCellCentered}>
+          {standing.wins}
+        </td>
+
+        <td style={tableCellCentered}>
+          {standing.losses}
+        </td>
+
+        <td style={tableCellCentered}>
+          {standing.setsWon}-{standing.setsLost}
+        </td>
+
+        <td style={tableCellCentered}>
+          {standing.setDifferential}
+        </td>
+
+        <td style={tableCellCentered}>
+          {standing.pointDifferential}
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</table>
         )}
       </section>
     </main>
